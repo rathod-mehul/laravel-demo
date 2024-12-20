@@ -11,7 +11,11 @@ class DemoController extends Controller
     {
         // return 'This is demo controller.';
         // return $userID;
-        return view('home', ['userId' => $userID]);
+        // return view('home', ['userId' => $userID]);
+        $car = array("brand"=>"Ford", "model"=>"Mustang", "year"=>1964);
+        return view('home', ['car' => $car]);
+        // return view('home')->with('name', 'Victoria')
+        //     ->with('occupation', 'Astronaut');
     }
 
     public function getName()
