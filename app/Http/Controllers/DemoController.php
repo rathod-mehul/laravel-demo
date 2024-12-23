@@ -12,7 +12,7 @@ class DemoController extends Controller
         // return 'This is demo controller.';
         // return $userID;
         // return view('home', ['userId' => $userID]);
-        $car = array("brand"=>"Ford", "model"=>"Mustang", "year"=>1964);
+        $car = array("brand" => "Ford", "model" => "Mustang", "year" => 1964);
         return view('home', ['car' => $car]);
         // return view('home')->with('name', 'Victoria')
         //     ->with('occupation', 'Astronaut');
@@ -28,5 +28,13 @@ class DemoController extends Controller
     public function getSubject()
     {
         // return 'Default Subject';
+    }
+
+    public function bladeDirective()
+    {
+        $records = array("brand" => "Ford", "model" => "Mustang", "year" => 1964);
+        // $records = [];
+
+        return view('blade-directive')->with('arrayRecords', $records);
     }
 }

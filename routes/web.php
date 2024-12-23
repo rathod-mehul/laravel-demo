@@ -26,6 +26,7 @@ Route::controller(DemoController::class)->group(function () {
     Route::get('user/{id?}', 'index');
     Route::get('get-name', 'getName');
     Route::get('get-subject', 'getSubject')->name('get.subject');
+    Route::get('blade-directive', 'bladeDirective');
 });
 Route::get('invokable-controller', InvokableController::class);
 // Route::redirect('/', 'user');
@@ -38,5 +39,3 @@ Route::get('invokable-controller', InvokableController::class);
 
 // Route::resource('photos', PhotoController::class);
 // Route::singleton('profile', PhotoController::class);
-
-//cheack git statuse
