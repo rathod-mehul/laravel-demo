@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Document</title>
 </head>
 
 <body>
+    @include('home', ['status' => 'complete'])
+    --------------------------------------------
     @php
     $records = 0;
     @endphp
@@ -94,6 +97,31 @@
         @endphp
         <p>while loop index.{{$records}}</p>
     @endwhile
+
+    <br>
+    @foreach ($users as $user)
+        @continue($user['id'] == 3)
+   
+        @if ($loop->first)
+            This is the first iteration.
+        @endif
+
+        {{-- @if ($user['id'] == 3)
+            @continue
+        @endif --}}
+
+        <li @class(['text-primary' => $user['id'] == 4])> {{$loop->iteration}} {{ $user['name'] }}</li>
+    
+        {{-- @if ($user['id'] == 7)
+            @break
+        @endif --}}
+        
+        @if ($loop->last)
+            This is the last iteration.
+        @endif
+        @break($user['id'] == 7)
+
+    @endforeach
 </body>
 
 </html>

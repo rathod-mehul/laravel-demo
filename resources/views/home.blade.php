@@ -25,6 +25,7 @@
     <h1>Home Page</h1>
     {{$defaultData}} <br>
     {{$bladeVariable}} <br>
+    Status is {{$status ?? 'Empty'}} <br>
 
 
 </body>

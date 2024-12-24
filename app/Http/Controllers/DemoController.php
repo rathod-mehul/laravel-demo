@@ -32,9 +32,22 @@ class DemoController extends Controller
 
     public function bladeDirective()
     {
-        $records = array("brand" => "Ford", "model" => "Mustang", "year" => 1964);
+        $arrayRecords = array("brand" => "Ford", "model" => "Mustang", "year" => 1964);
+        $users = [
+            ['id' => 1, 'name' => 'John Doe', 'email' => 'john@example.com'],
+            ['id' => 2, 'name' => 'Jane Smith', 'email' => 'jane@example.com'],
+            ['id' => 3, 'name' => 'Mark Taylor', 'email' => 'mark@example.com'],
+            ['id' => 4, 'name' => 'Sara Connor', 'email' => 'sara@example.com'],
+            ['id' => 5, 'name' => 'Paul Walker', 'email' => 'paul@example.com'],
+            ['id' => 6, 'name' => 'Emily Davis', 'email' => 'emily@example.com'],
+            ['id' => 7, 'name' => 'Chris Brown', 'email' => 'chris@example.com'],
+            ['id' => 8, 'name' => 'Olivia Johnson', 'email' => 'olivia@example.com'],
+            ['id' => 9, 'name' => 'Mike Tyson', 'email' => 'mike@example.com'],
+            ['id' => 10, 'name' => 'Sophia Wilson', 'email' => 'sophia@example.com'],
+        ];
         // $records = [];
 
-        return view('blade-directive')->with('arrayRecords', $records);
+        // return view('blade-directive')->with('arrayRecords', $records);
+        return view('blade-directive', compact('arrayRecords', 'users'));
     }
 }
