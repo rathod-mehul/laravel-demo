@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 // Route::view('/', 'welcome');
-Route::view('/', 'home');
+// Route::view('/', 'layouts.app');
+Route::view('/', 'pages.page1');
+Route::view('page-2', 'pages.page2');
+Route::view('page-3', 'pages.page3');
 
 Route::get('/greeting/{name?}', function (Request $request, $name = 'Default User') {
     // return 'Hello ' . $name;
