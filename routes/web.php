@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'pages.page1');
 Route::view('page-2', 'pages.page2');
 Route::view('page-3', 'pages.page3');
+Route::view('form', 'pages.form');
 
 Route::get('/greeting/{name?}', function (Request $request, $name = 'Default User') {
     // return 'Hello ' . $name;
@@ -42,3 +43,9 @@ Route::get('invokable-controller', InvokableController::class);
 
 // Route::resource('photos', PhotoController::class);
 // Route::singleton('profile', PhotoController::class);
+
+Route::post('form-submit', function (Request $request){
+    // print_r(request()->all());
+    // echo request('v');
+    return $request->all();
+});
