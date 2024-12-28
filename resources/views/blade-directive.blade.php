@@ -74,54 +74,48 @@
     @endswitch
 
     <br>
-    @for ($i = 0; $i < 10; $i++)
-        The current value is {{ $i }} <br>
-    @endfor
+    @for ($i = 0; $i < 10; $i++) The current value is {{ $i }} <br>
+        @endfor
 
-    <br>
-    @foreach ($arrayRecords as $key => $record)
-        <p>The  {{ $key }} is {{ $record }} </p> 
-    @endforeach
+        <br>
+        @foreach ($arrayRecords as $key => $record)
+        <p>The {{ $key }} is {{ $record }} </p>
+        @endforeach
 
-    {{-- use this instead of foreach, if there possibility to get empty records --}}
-    @forelse ($arrayRecords as $record)
+        {{-- use this instead of foreach, if there possibility to get empty records --}}
+        @forelse ($arrayRecords as $record)
         <li>{{ $record }}</li>
-    @empty
+        @empty
         <p>No Cars</p>
-    @endforelse
+        @endforelse
 
-    @while ($records < 5)
-        {{-- {{$records++}} --}}
-        @php
-            $records++
-        @endphp
-        <p>while loop index.{{$records}}</p>
-    @endwhile
+        @while ($records < 5) {{-- {{$records++}} --}} @php $records++ @endphp <p>while loop index.{{$records}}</p>
+            @endwhile
 
-    <br>
-    @foreach ($users as $user)
-        @continue($user['id'] == 3)
-   
-        @if ($loop->first)
+            <br>
+            @foreach ($users as $user)
+            @continue($user['id'] == 3)
+
+            @if ($loop->first)
             This is the first iteration.
-        @endif
+            @endif
 
-        {{-- @if ($user['id'] == 3)
+            {{-- @if ($user['id'] == 3)
             @continue
         @endif --}}
 
-        <li @class(['text-primary' => $user['id'] == 4])> {{$loop->iteration}} {{ $user['name'] }}</li>
-    
-        {{-- @if ($user['id'] == 7)
+            <li @class(['text-primary'=> $user['id'] == 4])> {{$loop->iteration}} {{ $user['name'] }}</li>
+
+            {{-- @if ($user['id'] == 7)
             @break
         @endif --}}
-        
-        @if ($loop->last)
-            This is the last iteration.
-        @endif
-        @break($user['id'] == 7)
 
-    @endforeach
+            @if ($loop->last)
+            This is the last iteration.
+            @endif
+            @break($user['id'] == 7)
+
+            @endforeach
 </body>
 
 </html>

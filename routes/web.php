@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\InvokableController;
 use App\Http\Controllers\PhotoController;
 use Illuminate\Http\Request;
@@ -44,8 +45,4 @@ Route::get('invokable-controller', InvokableController::class);
 // Route::resource('photos', PhotoController::class);
 // Route::singleton('profile', PhotoController::class);
 
-Route::post('form-submit', function (Request $request){
-    // print_r(request()->all());
-    // echo request('v');
-    return $request->all();
-});
+Route::post('form-submit', [FormController::class, 'store'])->name('form.submit');
