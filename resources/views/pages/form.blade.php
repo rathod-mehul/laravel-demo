@@ -8,10 +8,10 @@
         <ul>
             @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+@endforeach
+</ul>
+</div>
+@endif
 </div> --}}
 {{-- <form action="{{url('form-submit')}}" method="post"> --}}
 <form action="{{route('form.submit')}}" method="post">
@@ -26,6 +26,7 @@
     @error('email')
     <div class="text-danger">{{ $message }}</div>
     @enderror
+
     <br>
     <input type="submit" value="submit">
 </form>
