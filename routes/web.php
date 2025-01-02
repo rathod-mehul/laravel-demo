@@ -46,3 +46,7 @@ Route::get('invokable-controller', InvokableController::class);
 // Route::singleton('profile', PhotoController::class);
 
 Route::post('form-submit', [FormController::class, 'store'])->name('form.submit');
+
+Route::fallback(function () {
+    return 'Route Not Exists';
+});
