@@ -7,6 +7,8 @@ use App\Http\Controllers\PhotoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+Route::view('argon-dashboard', 'argon_dashboard.layout.app');
+
 // Route::get('/', function () {
 //     return view('home');
 // });
