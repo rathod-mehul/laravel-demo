@@ -4,10 +4,13 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\InvokableController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::view('argon-dashboard', 'argon_dashboard.layout.app');
+Route::view('argon-dashboard', 'argon_dashboard.pages.dashboard');
+// Route::view('argon-dashboard', 'argon_dashboard.pages.users');
+Route::get('users', [UserController::class, 'index']);
 
 // Route::get('/', function () {
 //     return view('home');
