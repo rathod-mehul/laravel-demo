@@ -10,6 +10,7 @@
 
 @section('content')
     {{-- {{$users}} --}}
+    <a href="{{ url('create-user') }}" class="btn btn-primary">Create</a>
     <table class="table">
         <thead>
             <tr>

@@ -8,16 +8,21 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::view('argon-dashboard', 'argon_dashboard.pages.dashboard');
-// Route::view('argon-dashboard', 'argon_dashboard.pages.users');
+
+# Users Routes
 Route::get('users', [UserController::class, 'index']);
+Route::get('create-user', [UserController::class, 'create']);
+Route::post('store-user', [UserController::class, 'store']);
+
+// Route::view('argon-dashboard', 'argon_dashboard.pages.dashboard');
+// Route::view('argon-dashboard', 'argon_dashboard.pages.users');
 
 // Route::get('/', function () {
 //     return view('home');
 // });
 // Route::view('/', 'welcome');
 // Route::view('/', 'layouts.app');
-Route::view('/', 'pages.page1');
+Route::view('/', 'argon_dashboard.pages.dashboard');
 Route::view('page-2', 'pages.page2');
 Route::view('page-3', 'pages.page3');
 Route::view('form', 'pages.form');
