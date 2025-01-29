@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -12,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->get();
+        $users = DB::table('users')->orderBy('id', 'desc')->get();
 
         return view('argon_dashboard.pages.users.users', ['users' => $users]);
     }
@@ -43,7 +45,7 @@ class UserController extends Controller
         DB::table('users')->insert([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' =>  Hash::make($request->password),
         ]);
 
         return redirect(url('users'));
@@ -62,7 +64,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = DB::table('users')->find($id);
+
+        return view('argon_dashboard.pages.users.edit', compact('user'));
     }
 
     /**
@@ -70,7 +74,12 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $input = Arr::only($request->all(), ['name', 'email']);
+        DB::table('users')
+            ->where('id', $id)
+            ->update($input);
+
+        return redirect(url('users'));
     }
 
     /**
@@ -78,6 +87,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('users')->where('id', $id)->delete();
+
+        return redirect(url('users'));
     }
 }

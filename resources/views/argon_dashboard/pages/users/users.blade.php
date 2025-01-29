@@ -10,13 +10,14 @@
 
 @section('content')
     {{-- {{$users}} --}}
-    <a href="{{ url('create-user') }}" class="btn btn-primary">Create</a>
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,12 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
+                    <td>
+                        <a href="{{ url('edit-user', $user->id) }}" class="btn btn-success">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{{ url('delete-user', $user->id) }}" class="btn btn-success">Delete</a>
+                    </td>
                 </tr>
             @endforeach
 

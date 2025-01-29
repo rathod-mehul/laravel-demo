@@ -14,7 +14,7 @@
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="email" class="form-control" id="name" name="name">
+                <input type="text" class="form-control" id="name" name="name">
             </div>
             <div class="mb-3">
                 <label for="name" class="form-label">Email address</label>
@@ -22,7 +22,9 @@
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
+                <input type="password" class="form-control" id="password" name="password"><br>
+                <button type="button" id="toggle-btn" class="btn btn-primary">view/hide</button>
+
             </div>
             <div class="mb-3">
                 <label for="confirmPassword" class="form-label">Confirm Password</label>
