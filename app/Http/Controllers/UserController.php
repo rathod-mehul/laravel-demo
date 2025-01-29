@@ -33,15 +33,19 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'nullable|email:filter',
-        // ], [
-        //     'name' => 'Name lakho',
-        //     'email.required' => 'Email lakho',
-        //     'email.email' => 'Email Should Be Proper',
-        // ]);
-
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => [
+                'required',
+                'string',
+                'min:8', // Minimum length of 8 characters
+                'confirmed', // Ensure password_confirmation field matches
+                'regex:/[A-Z]/', // Must contain at least one uppercase letter
+                'regex:/[0-9]/', // Must contain at least one number
+                'regex:/[@$!%*?&]/', // Must contain at least one special character
+            ],
+        ]);
         DB::table('users')->insert([
             'name' => $request->name,
             'email' => $request->email,
