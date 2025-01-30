@@ -22,7 +22,7 @@
             <div class="mb-3">
                 <label for="name" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="name" name="email" value="{{ old('email') }}">
-                @error('name')
+                @error('email')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>

@@ -14,6 +14,7 @@
         <h1>{{ $user->name }}</h1>
         <p>Email: {{ $user->email }}</p>
         <p>Joined on: {{ \Carbon\Carbon::parse($user->created_at)->format('d M, Y') }}</p>
+        <a href="{{ url('users') }}" class="btn btn-secondary">Back</a>
 
     </div>
 @endsection

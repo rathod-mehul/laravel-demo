@@ -40,8 +40,8 @@ class UserController extends Controller
     {
 
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
+            'name' => 'required|string|max:255', // Validate that the name is required, a string, and no longer than 255 characters
+            'email' => 'required|email|unique:users,email',
             'password' => [
                 'required',
                 'string',
@@ -52,12 +52,20 @@ class UserController extends Controller
                 'regex:/[@$!%*?&]/', // Must contain at least one special character
             ],
         ]);
-        DB::table('users')->insert([
+
+        # Query builder method
+        // DB::table('users')->insert([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'password' =>  Hash::make($request->password),
+        // ]);
+
+        # Eloquent method
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' =>  Hash::make($request->password),
         ]);
-
         return redirect(url('users'));
     }
 
@@ -67,8 +75,11 @@ class UserController extends Controller
     public function show(string $id)
     {
         //
-        $user = DB::table('users')->find($id);
+        # Query builder method
+        // $user = DB::table('users')->find($id);
 
+        # Eloquent method
+        $user =  User::find($id);
         return view('argon_dashboard.pages.users.show', compact('user'));
     }
 
@@ -77,8 +88,11 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $user = DB::table('users')->find($id);
+        # Query builder method
+        // $user = DB::table('users')->find($id);
 
+        # Eloquent method
+        $user = User::find($id);
         return view('argon_dashboard.pages.users.edit', compact('user'));
     }
 
@@ -93,9 +107,15 @@ class UserController extends Controller
         ]);
 
         $input = Arr::only($request->all(), ['name', 'email']);
-        DB::table('users')
-            ->where('id', $id)
-            ->update($input);
+
+
+        # Query builder method
+        // DB::table('users')
+        //     ->where('id', $id)
+        //     ->update($input);
+
+        # Eloquent method
+        User::where('id', $id)->update($input);
 
         return redirect(url('users'));
     }
@@ -105,8 +125,12 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        DB::table('users')->where('id', $id)->delete();
 
+        # Query builder method
+        // DB::table('users')->where('id', $id)->delete();
+
+        # Eloquent method
+        User::where('id', $id)->delete();
         return redirect(url('users'));
     }
 }
