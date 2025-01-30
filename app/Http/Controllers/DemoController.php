@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -49,5 +50,11 @@ class DemoController extends Controller
 
         // return view('blade-directive')->with('arrayRecords', $records);
         return view('blade-directive', compact('arrayRecords', 'users'));
+    }
+
+    public function modelNaming(){
+        $posts = Post::all();
+
+        dd($posts);
     }
 }
