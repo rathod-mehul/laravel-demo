@@ -18,6 +18,7 @@
                 <th>Email</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>Show</th>
             </tr>
         </thead>
         <tbody>
@@ -27,11 +28,16 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
+                        <a href="{{ url('show-user', $user->id) }}" class="btn btn-success">Show</a>
+
+                    </td>
+                    <td>
                         <a href="{{ url('edit-user', $user->id) }}" class="btn btn-success">Edit</a>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-danger" onClick="confirmDelete('{{ url('delete-user', $user->id) }}')">Delete</a>
-                        
+                        <a href="#" class="btn btn-danger"
+                            onClick="confirmDelete('{{ url('delete-user', $user->id) }}')">Delete</a>
+
                     </td>
                 </tr>
             @endforeach

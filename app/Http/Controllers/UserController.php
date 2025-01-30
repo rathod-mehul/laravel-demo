@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use PharIo\Manifest\Email;
 
 class UserController extends Controller
 {
@@ -66,6 +67,9 @@ class UserController extends Controller
     public function show(string $id)
     {
         //
+        $user = DB::table('users')->find($id);
+
+        return view('argon_dashboard.pages.users.show', compact('user'));
     }
 
     /**
@@ -83,6 +87,11 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+
         $input = Arr::only($request->all(), ['name', 'email']);
         DB::table('users')
             ->where('id', $id)
