@@ -20,7 +20,7 @@ class UserController extends Controller
         // $users = DB::table('users')->orderBy('id', 'desc')->get();
 
         # Eloquent method
-        $users = User::all();
+        $users = User::orderBy('id', 'desc')->get();
 
         return view('argon_dashboard.pages.users.users', ['users' => $users]);
     }
@@ -58,6 +58,7 @@ class UserController extends Controller
         //     'name' => $request->name,
         //     'email' => $request->email,
         //     'password' =>  Hash::make($request->password),
+        //     'created_at' => now()
         // ]);
 
         # Eloquent method
@@ -66,7 +67,8 @@ class UserController extends Controller
             'email' => $request->email,
             'password' =>  Hash::make($request->password),
         ]);
-        return redirect(url('users'));
+        // return redirect(url('users'));
+        return redirect()->route('users.index');
     }
 
     /**
@@ -103,11 +105,10 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
         $input = Arr::only($request->all(), ['name', 'email']);
-
 
         # Query builder method
         // DB::table('users')

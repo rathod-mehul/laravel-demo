@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ url('update-user', $user->id) }}" method="post">
+        <form action="{{ route('users.update', $user->id) }}" method="post">
             @csrf
             @method('put')
             <div class="mb-3">

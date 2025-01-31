@@ -16,9 +16,9 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Show</th>
                 <th>Edit</th>
                 <th>Delete</th>
-                <th>Show</th>
             </tr>
         </thead>
         <tbody>
@@ -28,11 +28,11 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="{{ url('show-user', $user->id) }}" class="btn btn-success">Show</a>
+                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning">Show</a>
 
                     </td>
                     <td>
-                        <a href="{{ url('edit-user', $user->id) }}" class="btn btn-success">Edit</a>
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success">Edit</a>
                     </td>
                     <td>
                         <a href="#" class="btn btn-danger"

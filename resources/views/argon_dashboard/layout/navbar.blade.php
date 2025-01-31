@@ -7,7 +7,7 @@
                         <div class="input-group">
                             {{-- Create User button is show if the User Pages is open  --}}
                             @if (Request::is('users'))
-                                <a href="{{ url('create-user') }}" class="btn btn-primary">Create</a>
+                                <a href="{{ route('users.create') }}" class="btn btn-primary">Create</a>
                             @endif
 
                         </div>

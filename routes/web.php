@@ -10,13 +10,15 @@ use Illuminate\Support\Facades\Route;
 
 
 # Users Routes
-Route::get('users', [UserController::class, 'index']);
-Route::get('create-user', [UserController::class, 'create']);
-Route::post('store-user', [UserController::class, 'store']);
-Route::get('edit-user/{id}', [UserController::class, 'edit']);
-Route::put('update-user/{id}', [UserController::class, 'update']);
+// Route::get('users', [UserController::class, 'index']);
+// Route::get('create-user', [UserController::class, 'create']);
+// Route::post('store-user', [UserController::class, 'store']);
+// Route::get('edit-user/{id}', [UserController::class, 'edit']);
+// Route::put('update-user/{id}', [UserController::class, 'update']);
 Route::get('delete-user/{id}', [UserController::class, 'destroy']);
-Route::get('show-user/{id}', [UserController::class, 'show']);
+// Route::get('show-user/{id}', [UserController::class, 'show']);
+
+Route::resource('users', UserController::class);
 
 
 // Route::view('argon-dashboard', 'argon_dashboard.pages.dashboard');
