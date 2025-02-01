@@ -20,11 +20,12 @@ document.getElementById('toggle-btn').addEventListener('click', function () {
 
 //  JavaScript to handle confirmation
 
-function confirmDelete(url) {
+function confirmDelete(userId) {
     // Show confirmation dialog
     if (confirm("Are you sure you want to delete this user?")) {
-        // If user clicks OK, proceed with the delete request
-        window.location.href = url;
+       let deleteForm = document.getElementById(`deleteForm${userId}`)
+       console.log(deleteForm);
+       deleteForm.submit()
     } else {
         // If user clicks Cancel, do nothing
         return false;

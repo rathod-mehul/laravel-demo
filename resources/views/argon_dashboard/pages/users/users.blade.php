@@ -35,9 +35,11 @@
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success">Edit</a>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-danger"
-                            onClick="confirmDelete('{{ url('delete-user', $user->id) }}')">Delete</a>
-
+                        <a href="javascript:void(0)" class="btn btn-danger" onClick="confirmDelete({{ $user->id }})">Delete</a>
+                        <form action="{{ route('users.destroy', $user->id) }}" id="deleteForm{{ $user->id }}" method="post">
+                            @csrf
+                            @method('delete')
+                        </form>
                     </td>
                 </tr>
             @endforeach
