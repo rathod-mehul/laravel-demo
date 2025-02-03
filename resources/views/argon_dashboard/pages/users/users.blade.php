@@ -17,6 +17,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Show</th>
+                <th>Image</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -30,6 +31,9 @@
                     <td>
                         <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning">Show</a>
 
+                    </td>
+                    <td>
+                        <img width="75" src="{{ asset('images/' . $user->image) }}" alt="">
                     </td>
                     <td>
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success">Edit</a>

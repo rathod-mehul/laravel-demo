@@ -53,6 +53,19 @@ class UserController extends Controller
             ],
         ]);
 
+        $inputs = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' =>  Hash::make($request->password),
+        ];
+
+        $file = $request->file('image');
+        if (!empty($file)) {
+            $name = $file->getClientOriginalName();
+            $file->move('images', $name);
+            $inputs['image'] = $name;
+        }
+
         # Query builder method
         // DB::table('users')->insert([
         //     'name' => $request->name,
@@ -62,11 +75,7 @@ class UserController extends Controller
         // ]);
 
         # Eloquent method
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' =>  Hash::make($request->password),
-        ]);
+        User::create($inputs);
         // return redirect(url('users'));
         return redirect()->route('users.index');
     }

@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ route('users.store') }}" method="post">
+        <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -34,12 +34,18 @@
                 @enderror
                 <br>
                 <button type="button" id="toggle-btn" class="btn btn-primary">view</button>
-
             </div>
             <div class="mb-3">
                 <label for="confirmPassword" class="form-label">Confirm Password</label>
                 <input type="password" class="form-control" id="confirmPassword" name="password_confirmation"
                     value="{{ old('confirmPassword') }}">
+            </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Upload Image</label>
+                <input class="form-control" type="file" id="formFile" name="image">
+                @error('image')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="{{ url('/users') }}" class="btn btn-secondary">Back</a>
