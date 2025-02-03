@@ -35,8 +35,10 @@
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success">Edit</a>
                     </td>
                     <td>
-                        <a href="javascript:void(0)" class="btn btn-danger" onClick="confirmDelete({{ $user->id }})">Delete</a>
-                        <form action="{{ route('users.destroy', $user->id) }}" id="deleteForm{{ $user->id }}" method="post">
+                        <a href="javascript:void(0)" class="btn btn-danger"
+                            onClick="confirmDelete({{ $user->id }})">Delete</a>
+                        <form action="{{ route('users.destroy', $user->id) }}" id="deleteForm{{ $user->id }}"
+                            method="post">
                             @csrf
                             @method('delete')
                         </form>
@@ -47,3 +49,21 @@
         </tbody>
     </table>
 @endsection
+
+@push('scripts')
+    <script>
+        //  JavaScript to handle confirmation
+
+        function confirmDelete(userId) {
+            // Show confirmation dialog
+            if (confirm("Are you sure you want to delete this user?")) {
+                let deleteForm = document.getElementById(`deleteForm${userId}`)
+                console.log(deleteForm);
+                deleteForm.submit()
+            } else {
+                // If user clicks Cancel, do nothing
+                return false;
+            }
+        }
+    </script>
+@endpush

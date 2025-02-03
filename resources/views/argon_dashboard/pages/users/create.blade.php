@@ -33,7 +33,7 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
                 <br>
-                <button type="button" id="toggle-btn" class="btn btn-primary">view/hide</button>
+                <button type="button" id="toggle-btn" class="btn btn-primary">view</button>
 
             </div>
             <div class="mb-3">
@@ -46,3 +46,25 @@
         </form>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.getElementById('toggle-btn').addEventListener('click', function() {
+
+            let passwordField = document.getElementById('password');
+            let confirmPasswordField = document.getElementById('confirmPassword');
+            let toggleButton = document.getElementById('toggle-btn');
+
+            if (passwordField.type === "password") {
+                confirmPasswordField.type = "text";
+                passwordField.type = "text";
+                toggleButton.innerHTML = "Hide";
+            } else {
+                confirmPasswordField.type = "password";
+                passwordField.type = "password";
+                toggleButton.innerHTML = "Show";
+            }
+
+        })
+    </script>
+@endpush

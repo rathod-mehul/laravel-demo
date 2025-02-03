@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Route;
 
 
 # Users Routes
-// Route::get('users', [UserController::class, 'index']);
-// Route::get('create-user', [UserController::class, 'create']);
-// Route::post('store-user', [UserController::class, 'store']);
-// Route::get('edit-user/{id}', [UserController::class, 'edit']);
-// Route::put('update-user/{id}', [UserController::class, 'update']);
-// Route::get('delete-user/{id}', [UserController::class, 'destroy']);
-// Route::get('show-user/{id}', [UserController::class, 'show']);
+// Route::get('users', [UserController::class, 'index'])->name('users.index');
+// Route::get('create-user', [UserController::class, 'create'])->name('users.create');
+// Route::post('store-user', [UserController::class, 'store'])->name('users.store');
+// Route::get('edit-user/{id}', [UserController::class, 'edit'])->name('users.edit');
+// Route::put('update-user/{id}', [UserController::class, 'update'])->name('users.update');
+// Route::delete('delete-user/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+// Route::get('show-user/{id}', [UserController::class, 'show'])->name('users.show');
 
 Route::resource('users', UserController::class);
 
