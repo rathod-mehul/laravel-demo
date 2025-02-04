@@ -49,6 +49,7 @@ Route::controller(DemoController::class)->group(function () {
     Route::get('get-subject', 'getSubject')->name('get.subject');
     Route::get('blade-directive', 'bladeDirective');
     Route::get('model-naming', 'modelNaming');
+    Route::get('encrypt-decrypt', 'encryptDecrypt');
 });
 Route::get('invokable-controller', InvokableController::class);
 // Route::redirect('/', 'user');

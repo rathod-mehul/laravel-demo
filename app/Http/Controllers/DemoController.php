@@ -4,10 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\View;
 
 class DemoController extends Controller
 {
+    public function encryptDecrypt()
+    {
+        $value = 123;
+        $encryptValue = Crypt::encrypt($value);
+        $decryptValue = Crypt::decrypt($encryptValue);
+
+        return [$encryptValue, $decryptValue];
+    }
+
     public function index($userID = 0)
     {
         // return 'This is demo controller.';
@@ -52,7 +62,8 @@ class DemoController extends Controller
         return view('blade-directive', compact('arrayRecords', 'users'));
     }
 
-    public function modelNaming(){
+    public function modelNaming()
+    {
         $posts = Post::all();
 
         dd($posts);

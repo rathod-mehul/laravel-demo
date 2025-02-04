@@ -29,7 +29,7 @@
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}">
-                @error('name')
+                @error('password')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
                 <br>
@@ -39,6 +39,9 @@
                 <label for="confirmPassword" class="form-label">Confirm Password</label>
                 <input type="password" class="form-control" id="confirmPassword" name="password_confirmation"
                     value="{{ old('confirmPassword') }}">
+                @error('password_confirmation')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Upload Image</label>

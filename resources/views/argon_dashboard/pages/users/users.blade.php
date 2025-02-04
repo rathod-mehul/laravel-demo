@@ -29,11 +29,12 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning">Show</a>
-
+                        <img width="75" src="{{ asset('images/' . $user->image) }}"
+                            alt="image not found . {{ $user->image }}">
                     </td>
                     <td>
-                        <img width="75" src="{{ asset('images/' . $user->image) }}" alt="">
+                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning">Show</a>
+
                     </td>
                     <td>
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success">Edit</a>

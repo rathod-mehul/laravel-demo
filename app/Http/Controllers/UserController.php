@@ -6,7 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\File as RulesFile;
 use PharIo\Manifest\Email;
 
 class UserController extends Controller
@@ -51,6 +53,12 @@ class UserController extends Controller
                 'regex:/[0-9]/', // Must contain at least one number
                 'regex:/[@$!%*?&]/', // Must contain at least one special character
             ],
+            'image' => [
+                'required',
+                // RulesFile::image(),
+                RulesFile::types(['mp3', 'wav'])
+                   
+            ]
         ]);
 
         $inputs = [
@@ -112,12 +120,25 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $user = User::find($id);
+        $oldImgPath = public_path('images/' . $user->image);
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
         $input = Arr::only($request->all(), ['name', 'email']);
+        $file = $request->file('image');
+        if (!empty($file)) {
+            // remove old image if exist it
+            if (File::exists($oldImgPath)) {
+                File::delete($oldImgPath);
+            }
+
+            $name = $file->getClientOriginalName();
+            $file->move('images', $name);
+            $input['image'] = $name;
+        }
 
         # Query builder method
         // DB::table('users')
@@ -126,6 +147,8 @@ class UserController extends Controller
 
         # Eloquent method
         User::where('id', $id)->update($input);
+
+
 
         return redirect(url('users'));
     }
@@ -136,11 +159,22 @@ class UserController extends Controller
     public function destroy(string $id)
     {
 
+        $user = User::find($id);
+
         # Query builder method
         // DB::table('users')->where('id', $id)->delete();
 
         # Eloquent method
         User::where('id', $id)->delete();
+
+        // delete the images with user
+        $imagePath = public_path('images/' . $user->image);
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
+
+
+
         return redirect(url('users'));
     }
 }
