@@ -16,8 +16,8 @@
         <p>Joined on: {{ \Carbon\Carbon::parse($user->created_at)->format('d M, Y') }}</p>
         <img src="{{ asset('images/' . $user->image) }}" alt="" width="75">
         <br>
+        <p>Mobile: {{ $user->mobile->model ?? '' }}</p>
         <br>
         <a href="{{ url('users') }}" class="btn btn-secondary">Back</a>
-
     </div>
 @endsection

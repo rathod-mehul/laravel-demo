@@ -44,6 +44,14 @@
                 @enderror
             </div>
             <div class="mb-3">
+                <select class="form-select" aria-label="Default select example" name="phone_id">
+                    <option selected>Select Mobile</option>
+                    @foreach ($phones as $phone)
+                        <option value="{{ $phone->id }}">{{ $phone->model }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="formFile" class="form-label">Upload Image</label>
                 <input class="form-control" type="file" id="formFile" name="image">
                 @error('image')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Phone;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -32,7 +33,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('argon_dashboard.pages.users.create');
+        $phones = Phone::all();
+
+        return view('argon_dashboard.pages.users.create', compact('phones'));
     }
 
     /**
@@ -56,8 +59,8 @@ class UserController extends Controller
             'image' => [
                 'required',
                 // RulesFile::image(),
-                RulesFile::types(['mp3', 'wav'])
-                   
+                // RulesFile::types(['mp3', 'wav'])
+
             ]
         ]);
 
@@ -72,6 +75,9 @@ class UserController extends Controller
             $name = $file->getClientOriginalName();
             $file->move('images', $name);
             $inputs['image'] = $name;
+        }
+        if (isset($request->phone_id)) {
+            $inputs['phone_id'] = $request->phone_id;
         }
 
         # Query builder method
@@ -128,6 +134,16 @@ class UserController extends Controller
         ]);
 
         $input = Arr::only($request->all(), ['name', 'email']);
+
+        //Check if the user want to remove the imag
+        if ($request->has('remove_img') && $request->remove_img == 1) {
+            // dd($request->has('remove_img'));
+            if (File::exists($oldImgPath)) {
+                File::delete($oldImgPath);
+                $input['image'] = null;
+            }
+        }
+
         $file = $request->file('image');
         if (!empty($file)) {
             // remove old image if exist it

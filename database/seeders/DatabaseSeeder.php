@@ -23,8 +23,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // add here, if we want to run seeder here
-        // $this->call([
-        //     StudentSeeder::class
-        // ]);
+        $this->call([
+            // StudentSeeder::class
+            PhoneSeeder::class
+        ]);
     }
 }
