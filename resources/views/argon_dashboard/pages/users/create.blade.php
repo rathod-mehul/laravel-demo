@@ -52,6 +52,11 @@
                 </select>
             </div>
             <div class="mb-3">
+                Details:
+                <input type="text" class="form-control" name="address" value="{{ old('address') }}" placeholder="Address">
+                <input type="text" class="form-control" name="hobby" value="{{ old('hobby') }}" placeholder="Hobby">
+            </div>
+            <div class="mb-3">
                 <label for="formFile" class="form-label">Upload Image</label>
                 <input class="form-control" type="file" id="formFile" name="image">
                 @error('image')

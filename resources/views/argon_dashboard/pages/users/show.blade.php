@@ -17,6 +17,8 @@
         <img src="{{ asset('images/' . $user->image) }}" alt="" width="75">
         <br>
         <p>Mobile: {{ $user->mobile->model ?? '' }}</p>
+        <p>Address: {{ $user->details->address ?? ''  }}</p>
+        <p>Hobby: {{ $user->details->hobby ?? ''  }}</p>
         <br>
         <a href="{{ url('users') }}" class="btn btn-secondary">Back</a>
     </div>

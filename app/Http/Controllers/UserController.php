@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Details;
 use App\Models\Phone;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -56,12 +57,12 @@ class UserController extends Controller
                 'regex:/[0-9]/', // Must contain at least one number
                 'regex:/[@$!%*?&]/', // Must contain at least one special character
             ],
-            'image' => [
-                'required',
+            // 'image' => [
+            //     'required',
                 // RulesFile::image(),
                 // RulesFile::types(['mp3', 'wav'])
 
-            ]
+            // ]
         ]);
 
         $inputs = [
@@ -89,7 +90,13 @@ class UserController extends Controller
         // ]);
 
         # Eloquent method
-        User::create($inputs);
+        $user = User::create($inputs);
+        // info(['$user' => $user]);
+        Details::create([
+            'address' => $request->address,
+            'hobby' => $request->hobby,
+            'user_id' => $user->id,
+        ]);
         // return redirect(url('users'));
         return redirect()->route('users.index');
     }

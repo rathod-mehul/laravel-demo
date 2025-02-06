@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Phone::class, 'phone_id');
     }
+
+    public function details()
+    {
+        return $this->hasOne(Details::class);
+    }
 }
