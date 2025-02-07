@@ -48,6 +48,8 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255', // Validate that the name is required, a string, and no longer than 255 characters
             'email' => 'required|email|unique:users,email',
+            'gender' => 'required|string',
+            'skills' => 'nullable|array',
             'password' => [
                 'required',
                 'string',
@@ -59,8 +61,8 @@ class UserController extends Controller
             ],
             // 'image' => [
             //     'required',
-                // RulesFile::image(),
-                // RulesFile::types(['mp3', 'wav'])
+            // RulesFile::image(),
+            // RulesFile::types(['mp3', 'wav'])
 
             // ]
         ]);
@@ -69,6 +71,8 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' =>  Hash::make($request->password),
+            'gender' => $request->gender,
+            'skills' => $request->skills
         ];
 
         $file = $request->file('image');
@@ -125,7 +129,9 @@ class UserController extends Controller
 
         # Eloquent method
         $user = User::find($id);
-        return view('argon_dashboard.pages.users.edit', compact('user'));
+
+        $phones = Phone::all();
+        return view('argon_dashboard.pages.users.edit', compact(['user', 'phones']));
     }
 
     /**
@@ -140,7 +146,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
-        $input = Arr::only($request->all(), ['name', 'email']);
+        $input = Arr::only($request->all(), ['name', 'email', 'phone_id']);
 
         //Check if the user want to remove the imag
         if ($request->has('remove_img') && $request->remove_img == 1) {
@@ -163,6 +169,8 @@ class UserController extends Controller
             $input['image'] = $name;
         }
 
+        $details = Arr::only($request->all(), ['address', 'hobby']);
+
         # Query builder method
         // DB::table('users')
         //     ->where('id', $id)
@@ -170,6 +178,7 @@ class UserController extends Controller
 
         # Eloquent method
         User::where('id', $id)->update($input);
+        Details::where('id', $id)->update($details);
 
 
 

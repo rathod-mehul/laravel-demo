@@ -20,12 +20,19 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+
+    protected $casts = [
+        'skills' => 'json',
+    ];
+
     protected $fillable = [
         'name',
         'email',
         'password',
         'image',
-        'phone_id'
+        'phone_id',
+        'skills',
+        'gender'
     ];
 
     /**
@@ -59,5 +66,10 @@ class User extends Authenticatable
     public function details()
     {
         return $this->hasOne(Details::class);
+    }
+
+    public function moreDetails()
+    {
+        return $this->hasMany(Details::class);
     }
 }

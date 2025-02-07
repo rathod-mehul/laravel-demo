@@ -16,8 +16,8 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Show</th>
                 <th>Image</th>
+                <th>Show</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -29,8 +29,9 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <img width="75" src="{{ asset('images/' . $user->image) }}"
-                            alt="image not found . {{ $user->image }}">
+                        <img width="75"
+                            src="{{ $user->image ? asset('images/' . $user->image) : asset('images/default.png') }}"
+                            alt="user profile image not found">
                     </td>
                     <td>
                         <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning">Show</a>
