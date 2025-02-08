@@ -96,11 +96,14 @@ class UserController extends Controller
         # Eloquent method
         $user = User::create($inputs);
         // info(['$user' => $user]);
-        Details::create([
+        $details = [
             'address' => $request->address,
             'hobby' => $request->hobby,
             'user_id' => $user->id,
-        ]);
+        ];
+        // dd($details);
+        $user->details()->create($details); // insert details using relation
+        // Details::create($details);
         // return redirect(url('users'));
         return redirect()->route('users.index');
     }
@@ -178,7 +181,8 @@ class UserController extends Controller
 
         # Eloquent method
         User::where('id', $id)->update($input);
-        Details::where('id', $id)->update($details);
+        // Details::where('id', $id)->update($details);
+        $user->details()->update($details); // update details using relation
 
 
 
@@ -204,8 +208,7 @@ class UserController extends Controller
         if (File::exists($imagePath)) {
             File::delete($imagePath);
         }
-
-
+        // $user->details()->delete(); // delete details using relation
 
         return redirect(url('users'));
     }

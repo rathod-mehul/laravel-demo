@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\View;
 
 class DemoController extends Controller
@@ -67,5 +68,12 @@ class DemoController extends Controller
         $posts = Post::all();
 
         dd($posts);
+    }
+
+    public function getTodos()
+    {
+        $response = Http::get('https://jsonplaceholder.typicode.com/todos');
+
+        return $response;
     }
 }

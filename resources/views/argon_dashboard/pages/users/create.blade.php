@@ -89,7 +89,7 @@
             </div>
             <div class="mb-3">
                 <select class="form-select" aria-label="Default select example" name="phone_id">
-                    <option selected>Select Mobile</option>
+                    <option value="0" selected>Select Mobile</option>
                     @foreach ($phones as $phone)
                         <option value="{{ $phone->id }}">{{ $phone->model }}</option>
                     @endforeach
