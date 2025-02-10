@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserTestMail;
 use App\Models\Details;
 use App\Models\Phone;
 use App\Models\User;
@@ -10,6 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\File as RulesFile;
 use PharIo\Manifest\Email;
 
@@ -24,7 +26,10 @@ class UserController extends Controller
         // $users = DB::table('users')->orderBy('id', 'desc')->get();
 
         # Eloquent method
-        $users = User::orderBy('id', 'desc')->get();
+        // $users = User::orderBy('id', 'desc')->get();
+        $users = User::orderBy('id', 'desc')->paginate(10);
+        Mail::to('user@mail.com')->send(new UserTestMail());
+
 
         return view('argon_dashboard.pages.users.users', ['users' => $users]);
     }

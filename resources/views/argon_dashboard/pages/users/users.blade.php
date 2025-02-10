@@ -54,6 +54,10 @@
 
         </tbody>
     </table>
+    <!-- Pagination Links -->
+    <div class="mt-3">
+        {{ $users->links('pagination::bootstrap-5') }}
+    </div>
 @endsection
 
 @push('scripts')

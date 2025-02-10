@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\View;
@@ -72,8 +73,27 @@ class DemoController extends Controller
 
     public function getTodos()
     {
-        $response = Http::get('https://jsonplaceholder.typicode.com/todos');
+        $response = Http::get('https://jsonplaceholder.typicode.com/todos')->json();
 
-        return $response;
+        //Try to create pagination in table todos
+
+        //Convert array to laravel Collection
+        $todos = collect($response);
+
+        // paginate the result (20 per page)
+        $perPage = 20;
+        $currentPage = request()->query('page', 1); //Get current page from URL query, default is 1
+        $currentItems = $todos->slice(($currentPage - 1) * $perPage, $perPage)->all();
+
+        // Create LengthAwarePaginator instance
+        $paginatedTodos = new LengthAwarePaginator(
+            $currentItems, // Items for the current page
+            $todos->count(), // Total items
+            $perPage, // Items per page
+            $currentPage, // Current page
+            ['path' => request()->url()] // Maintain the current URL
+        );
+
+        return view('argon_dashboard.pages.todos', ['todos' => $paginatedTodos]);
     }
 }
