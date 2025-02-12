@@ -22,6 +22,7 @@ Route::resource('users', UserController::class);
 
 // Route::view('argon-dashboard', 'argon_dashboard.pages.dashboard');
 // Route::view('argon-dashboard', 'argon_dashboard.pages.users');
+Route::view('email-page', 'mail.user-email');
 
 // Route::get('/', function () {
 //     return view('home');

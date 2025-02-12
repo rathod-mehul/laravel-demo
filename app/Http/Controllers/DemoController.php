@@ -81,7 +81,7 @@ class DemoController extends Controller
         $todos = collect($response);
 
         // paginate the result (20 per page)
-        $perPage = 20;
+        $perPage = 10;
         $currentPage = request()->query('page', 1); //Get current page from URL query, default is 1
         $currentItems = $todos->slice(($currentPage - 1) * $perPage, $perPage)->all();
 

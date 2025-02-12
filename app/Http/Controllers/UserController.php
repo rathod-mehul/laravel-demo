@@ -28,8 +28,6 @@ class UserController extends Controller
         # Eloquent method
         // $users = User::orderBy('id', 'desc')->get();
         $users = User::orderBy('id', 'desc')->paginate(10);
-        Mail::to('user@mail.com')->send(new UserTestMail());
-
 
         return view('argon_dashboard.pages.users.users', ['users' => $users]);
     }
@@ -108,6 +106,8 @@ class UserController extends Controller
         ];
         // dd($details);
         $user->details()->create($details); // insert details using relation
+        Mail::to('user@mail.com')->send(new UserTestMail($user));
+        // Mail::to('user@mail.com')->send(new UserTestMail($user));
         // Details::create($details);
         // return redirect(url('users'));
         return redirect()->route('users.index');
