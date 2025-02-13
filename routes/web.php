@@ -3,6 +3,7 @@
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\InvokableController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -18,18 +19,27 @@ use Illuminate\Support\Facades\Route;
 // Route::delete('delete-user/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 // Route::get('show-user/{id}', [UserController::class, 'show'])->name('users.show');
 
-Route::resource('users', UserController::class);
+
 
 // Route::view('argon-dashboard', 'argon_dashboard.pages.dashboard');
 // Route::view('argon-dashboard', 'argon_dashboard.pages.users');
 Route::view('email-page', 'mail.user-email');
+Route::view('login', 'auth.login')->middleware('guest');
+Route::post('login', [LoginController::class, 'login'])->name('login');
 
 // Route::get('/', function () {
 //     return view('home');
 // });
 // Route::view('/', 'welcome');
 // Route::view('/', 'layouts.app');
-Route::view('/', 'argon_dashboard.pages.dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::resource('users', UserController::class);
+    Route::view('/', 'argon_dashboard.pages.dashboard');
+    Route::get('get-todos', [DemoController::class, 'getTodos']);
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+});
+
 Route::view('page-2', 'pages.page2');
 Route::view('page-3', 'pages.page3');
 Route::view('form', 'pages.form');
@@ -51,7 +61,6 @@ Route::controller(DemoController::class)->group(function () {
     Route::get('blade-directive', 'bladeDirective');
     Route::get('model-naming', 'modelNaming');
     Route::get('encrypt-decrypt', 'encryptDecrypt');
-    Route::get('get-todos', 'getTodos');
 });
 Route::get('invokable-controller', InvokableController::class);
 // Route::redirect('/', 'user');
