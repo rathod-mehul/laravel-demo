@@ -8,6 +8,7 @@ use App\Models\Phone;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -22,6 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        // $user = Auth::user();
         # Query builder method
         // $users = DB::table('users')->orderBy('id', 'desc')->get();
 
