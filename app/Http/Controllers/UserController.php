@@ -23,13 +23,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $user = Auth::user();
+        $authId = Auth::id();
         # Query builder method
         // $users = DB::table('users')->orderBy('id', 'desc')->get();
 
         # Eloquent method
         // $users = User::orderBy('id', 'desc')->get();
-        $users = User::orderBy('id', 'desc')->paginate(10);
+        $users = User::where('id', '!=', $authId)->orderBy('id', 'desc')->paginate(10);
 
         return view('argon_dashboard.pages.users.users', ['users' => $users]);
     }
@@ -109,6 +109,7 @@ class UserController extends Controller
         // dd($details);
         $user->details()->create($details); // insert details using relation
         Mail::to('user@mail.com')->send(new UserTestMail($user));
+        $request->session()->flash('success', 'User was created successful!');
         // Mail::to('user@mail.com')->send(new UserTestMail($user));
         // Details::create($details);
         // return redirect(url('users'));

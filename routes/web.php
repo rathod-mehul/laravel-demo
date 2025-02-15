@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
     Route::view('/', 'argon_dashboard.pages.dashboard');
     Route::get('get-todos', [DemoController::class, 'getTodos']);
-    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 Route::view('page-2', 'pages.page2');
