@@ -1,1 +1,5 @@
-console.log("Js File");
+$(document).ready(() => {
+
+
+
+})

@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(100)->create();
+        User::factory(100)->create();
         // Student::factory(50)->create();
 
         // User::factory()->create([
@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // add here, if we want to run seeder here
-        // $this->call([
-        //     // StudentSeeder::class
-        //     PhoneSeeder::class
-        // ]);
+        $this->call([
+            StudentSeeder::class,
+            PhoneSeeder::class
+        ]);
     }
 }

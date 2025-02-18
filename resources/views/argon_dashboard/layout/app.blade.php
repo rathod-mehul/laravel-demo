@@ -40,6 +40,7 @@
         </div>
     </main>
 
+    <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
     @stack('scripts')
 
