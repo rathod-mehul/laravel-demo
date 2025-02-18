@@ -6,6 +6,7 @@ use App\Http\Controllers\InvokableController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\TestMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,8 +37,9 @@ Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
     Route::view('/', 'argon_dashboard.pages.dashboard');
-    Route::get('get-todos', [DemoController::class, 'getTodos']);
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('get-todos', [DemoController::class, 'getTodos'])->middleware(TestMiddleware::class);
+    // Route::get('get-todos', [DemoController::class, 'getTodos'])->withoutMiddleware('auth'); // can be access guest user
 });
 
 Route::view('page-2', 'pages.page2');
