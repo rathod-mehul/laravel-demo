@@ -5,6 +5,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\InvokableController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\UserAjaxController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TestMiddleware;
 use Illuminate\Http\Request;
@@ -36,6 +37,8 @@ Route::post('login', [LoginController::class, 'login'])->name('login');
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
+    Route::resource('users-ajax', UserAjaxController::class);
+    Route::view('users-ajax-page', 'argon_dashboard.pages.users_ajax.index');
     Route::view('/', 'argon_dashboard.pages.dashboard');
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('get-todos', [DemoController::class, 'getTodos'])->middleware(TestMiddleware::class);
