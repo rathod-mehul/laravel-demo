@@ -9,7 +9,9 @@
                             @if (Request::is('users'))
                                 <a href="{{ route('users.create') }}" class="btn btn-primary">Create</a>
                             @endif
-
+                            @if (Request::is('users-ajax-page'))
+                                <a href="javascript:void(0)" class="btn btn-primary">Add User</a>
+                            @endif
                         </div>
                     </div>
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">

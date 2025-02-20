@@ -10,6 +10,7 @@
 
 @section('content')
     {{-- {{$users}} --}}
+    @include('argon_dashboard.pages.users_ajax.modal')
     @if (session('success'))
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>{{ session('success') }}</strong>
@@ -18,12 +19,19 @@
             </button>
         </div>
     @endif
+    <form id="userForm">
+        <input type="text" placeholder="name" name="name">
+        <input type="text" placeholder="email" name="email">
+        <input type="text" placeholder="password" name="password">
+        <input type="submit">
+    </form>
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Edit</th>
                 <th>Delete</th>
             </tr>
         </thead>
@@ -69,14 +77,6 @@
                 tdEmail.textContent = user.email;
                 tr.appendChild(tdEmail);
 
-                let tdShow = document.createElement("td");
-                let showBtn = document.createElement("a");
-                showBtn.href = `http://127.0.0.1:8000/users/${user.id}`;
-                showBtn.className = "btn btn-warning";
-                showBtn.textContent = "Show";
-                tdShow.appendChild(showBtn);
-                tr.appendChild(tdShow);
-
                 let tdEdit = document.createElement("td");
                 let editBtn = document.createElement("a");
                 editBtn.href = `http://127.0.0.1:8000/users/${user.id}/edit`;
@@ -95,9 +95,29 @@
                 tr.appendChild(tdDelete);
 
                 // Append the row to tbody
-                tbody.appendChild(tr);
+                tbody.prepend(tr);
             }
 
+            $('#userForm').on('submit', (e) => {
+                e.preventDefault();
+                console.log($('#userForm').serialize());
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "users-ajax",
+                    method: "POST",
+                    data: $('#userForm').serialize(),
+                    success: (result) => {
+                        console.log(result);
+                        appendUserRow(result);
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    }
+                })
+            })
 
         })
     </script>

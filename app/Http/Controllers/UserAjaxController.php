@@ -24,7 +24,7 @@ class UserAjaxController extends Controller
     public function index()
     {
         $authId = Auth::id();
-        $users = User::where('id', '!=', $authId)->orderBy('id', 'desc')->get();
+        $users = User::where('id', '!=', $authId)->get();
 
         return response()->json($users);
     }
@@ -44,86 +44,23 @@ class UserAjaxController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => 'required|string|max:255', // Validate that the name is required, a string, and no longer than 255 characters
             'email' => 'required|email|unique:users,email',
-            'gender' => 'required|string',
-            'skills' => 'nullable|array',
-            'password' => [
-                'required',
-                'string',
-                'min:8', // Minimum length of 8 characters
-                'confirmed', // Ensure password_confirmation field matches
-                'regex:/[A-Z]/', // Must contain at least one uppercase letter
-                'regex:/[0-9]/', // Must contain at least one number
-                'regex:/[@$!%*?&]/', // Must contain at least one special character
-            ],
-            // 'image' => [
-            //     'required',
-            // RulesFile::image(),
-            // RulesFile::types(['mp3', 'wav'])
-
-            // ]
+            'password' => 'required',
         ]);
 
         $inputs = [
             'name' => $request->name,
             'email' => $request->email,
             'password' =>  Hash::make($request->password),
-            'gender' => $request->gender,
-            'skills' => $request->skills
         ];
 
-        $file = $request->file('image');
-        if (!empty($file)) {
-            $name = $file->getClientOriginalName();
-            $file->move('images', $name);
-            $inputs['image'] = $name;
-        }
-        if (isset($request->phone_id)) {
-            $inputs['phone_id'] = $request->phone_id;
-        }
-
-        # Query builder method
-        // DB::table('users')->insert([
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'password' =>  Hash::make($request->password),
-        //     'created_at' => now()
-        // ]);
-
-        # Eloquent method
         $user = User::create($inputs);
-        // info(['$user' => $user]);
-        $details = [
-            'address' => $request->address,
-            'hobby' => $request->hobby,
-            'user_id' => $user->id,
-        ];
-        // dd($details);
-        $user->details()->create($details); // insert details using relation
-        Mail::to('user@mail.com')->send(new UserTestMail($user));
-        $request->session()->flash('success', 'User was created successful!');
-        // Mail::to('user@mail.com')->send(new UserTestMail($user));
-        // Details::create($details);
-        // return redirect(url('users'));
-        return redirect()->route('users.index');
+
+        return response()->json($user);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-        # Query builder method
-        // $user = DB::table('users')->find($id);
-
-        # Eloquent method
-        $user =  User::find($id);
-        return view('argon_dashboard.pages.users.show', compact('user'));
-    }
 
     /**
      * Show the form for editing the specified resource.
