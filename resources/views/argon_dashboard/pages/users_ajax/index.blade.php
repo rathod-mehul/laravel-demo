@@ -20,9 +20,10 @@
         </div>
     @endif
     <form id="userForm">
+        <div id="error-messages"></div> <!-- Errors will be shown here -->
         <input type="text" placeholder="name" name="name">
         <input type="text" placeholder="email" name="email">
-        <input type="text" placeholder="password" name="password">
+        <input type="password" placeholder="password" name="password">
         <input type="submit">
     </form>
     <table class="table">
@@ -79,8 +80,9 @@
 
                 let tdEdit = document.createElement("td");
                 let editBtn = document.createElement("a");
-                editBtn.href = `http://127.0.0.1:8000/users/${user.id}/edit`;
-                editBtn.className = "btn btn-success";
+                editBtn.href = "javascript:void(0)"
+                editBtn.className = "btn btn-success edit-user";
+                editBtn.setAttribute("data-id", user.id);
                 editBtn.textContent = "Edit";
                 tdEdit.appendChild(editBtn);
                 tr.appendChild(tdEdit);
@@ -112,13 +114,86 @@
                     success: (result) => {
                         console.log(result);
                         appendUserRow(result);
+                        $('#userForm')[0].reset();
                     },
-                    error: (error) => {
-                        console.log(error);
+                    error: (xhr, status, error) => {
+                        console.log('status:', status);
+                        console.log('XHR object:', xhr);
+                        console.log('Responsive text:', xhr.responsiveText);
+                        console.log('Error Thrown:', error);
+                        console.log('hello how can i help you????', xhr.responseJSON.errors);
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            $("#error-messages").html(""); // Clear previous errors
+
+                            $.each(errors, function(key, messages) {
+                                $("#error-messages").append(
+                                    `<p class="text-danger">${messages[0]}</p>`);
+                            });
+                        }
                     }
                 })
             })
 
+
+
+            $('#editForm').on('submit', (e) => {
+                e.preventDefault();
+                console.log($('#userForm').serialize());
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "users-ajax",
+                    method: "POST",
+                    data: $('#userForm').serialize(),
+                    success: (result) => {
+                        console.log(result);
+                        appendUserRow(result);
+                        $('#userForm')[0].reset();
+                    },
+                    error: (xhr, status, error) => {
+                        console.log('status:', status);
+                        console.log('XHR object:', xhr);
+                        console.log('Responsive text:', xhr.responsiveText);
+                        console.log('Error Thrown:', error);
+                        console.log('hello how can i help you????', xhr.responseJSON.errors);
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            $("#error-messages").html(""); // Clear previous errors
+
+                            $.each(errors, function(key, messages) {
+                                $("#error-messages").append(
+                                    `<p class="text-danger">${messages[0]}</p>`);
+                            });
+                        }
+                    }
+                })
+            })
+        })
+
+        $(document).on('click', '.edit-user', (e) => {
+            let id = $(this).data("id"); // Preferred way
+            console.log("Data ID using .data():", id);
+
+            let idAttr = $(this).attr("data-id"); // Alternative way
+            console.log("Data ID using .attr():", idAttr);
+
+            e.preventDefault();
+            // $.ajax({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     },
+            //     url: `users-ajax/${id}`,
+            //     method: "GET",
+            //     success: (result) => {
+            //         console.log(result);
+            //     },
+            //     error: (xhr, status, error) => {
+            //         console.log(error);
+            //     }
+            // })
         })
     </script>
 @endpush

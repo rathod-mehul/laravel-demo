@@ -67,14 +67,9 @@ class UserAjaxController extends Controller
      */
     public function edit(string $id)
     {
-        # Query builder method
-        // $user = DB::table('users')->find($id);
-
-        # Eloquent method
         $user = User::find($id);
 
-        $phones = Phone::all();
-        return view('argon_dashboard.pages.users.edit', compact(['user', 'phones']));
+        return response()->json($user);
     }
 
     /**

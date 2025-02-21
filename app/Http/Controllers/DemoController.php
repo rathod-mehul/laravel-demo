@@ -73,6 +73,7 @@ class DemoController extends Controller
 
     public function getTodos()
     {
+        // http://127.0.0.1:8000/api/users-ajax
         $response = Http::get('https://jsonplaceholder.typicode.com/todos')->json();
 
         //Try to create pagination in table todos
