@@ -34,5 +34,6 @@
         <p>Hobby: {{ $user->details->hobby ?? '' }}</p>
         <br>
         <a href="{{ url('users') }}" class="btn btn-secondary">Back</a>
+        {{ $user->roles }}
     </div>
 @endsection
