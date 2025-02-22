@@ -20,6 +20,7 @@
         </div>
     @endif
     <form id="createForm" class="user-form">
+    {{-- <form id="editForm" class="user-form"> --}}
         <div id="error-messages"></div> <!-- Errors will be shown here -->
         <input type="text" placeholder="name" name="name" id="name">
         <input type="text" placeholder="email" name="email" id="email">
